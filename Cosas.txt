@@ -1,0 +1,139 @@
+****************BASE DE DATOS***************
+CREATE TABLE Usuarios (
+    id_usuario SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    rol VARCHAR(10) CHECK (rol IN ('cliente', 'vendedor')) NOT NULL
+);
+
+CREATE TABLE Productos (
+    id_producto SERIAL PRIMARY KEY,
+    id_usuario INT,
+    nombre_producto VARCHAR(100) NOT NULL,
+    desc_prod TEXT,
+    imagen_prod VARCHAR(255),
+    precio NUMERIC(10, 2) NOT NULL,
+    categoria VARCHAR(10) CHECK (categoria IN ('mujer', 'hombre', 'niños')),
+    CONSTRAINT FK_Producto_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
+
+CREATE TABLE Ventas (
+    id_venta SERIAL PRIMARY KEY,
+    id_producto INT,
+    id_usuario_comp INT,
+    id_usuario_vend INT,
+    cantidad INT NOT NULL,
+    fecha_venta DATE DEFAULT CURRENT_DATE,
+    total NUMERIC(10, 2) NOT NULL,
+    estado VARCHAR(10) CHECK (estado IN ('confirmada', 'pendiente', 'cancelada')) NOT NULL,
+    CONSTRAINT FK_Venta_Producto FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    CONSTRAINT FK_Venta_usuario_comp FOREIGN KEY (id_usuario_comp) REFERENCES Usuarios(id_usuario),
+    CONSTRAINT FK_Venta_usuario_vend FOREIGN KEY (id_usuario_vend) REFERENCES Usuarios(id_usuario)
+);
+
+CREATE TABLE Puntuaciones (
+    id_puntuacion SERIAL PRIMARY KEY,
+    id_producto INT,
+    id_usuario INT,
+    puntuacion INT CHECK (puntuacion BETWEEN 1 AND 5),
+    comentario TEXT,
+    fecha_puntuacion DATE DEFAULT CURRENT_DATE,
+    CONSTRAINT FK_Puntuacion_Producto FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    CONSTRAINT FK_Puntuacion_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
+
+CREATE TABLE Historial_Compras (
+    id_historial SERIAL PRIMARY KEY,
+    id_venta INT,
+    fecha DATE DEFAULT CURRENT_DATE,
+    CONSTRAINT FK_Historial_Venta FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta)
+);
+
+CREATE TABLE Notificaciones (
+    id_notificacion SERIAL PRIMARY KEY,
+    id_usuario INT,
+    mensaje TEXT NOT NULL,
+    fecha_envio DATE DEFAULT CURRENT_DATE,
+    leida BOOLEAN DEFAULT FALSE,
+    CONSTRAINT FK_Notificacion_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+);
+
+-- Tabla Pedido
+CREATE TABLE Pedido (
+    id_pedido SERIAL PRIMARY KEY,
+    id_detalle_pedido INTEGER REFERENCES Detalle_pedido(id_detalle_pedido),
+    id_producto INTEGER REFERENCES Productos(id_producto),
+    cantidad INTEGER NOT NULL,
+    estado VARCHAR(20) NOT NULL CHECK (estado IN ('pendiente', 'completado')),
+    precio_unitario DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabla de Detalles de Pedido
+CREATE TABLE Detalle_pedido (
+    id_detalle_pedido SERIAL PRIMARY KEY,
+    id_usuario_pedido INTEGER REFERENCES Usuarios(id_usuario),
+    precio_total DECIMAL(10, 2) NOT NULL,
+    fecha_detalle_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+***********CONSULTAS PARA "Top_Vendedores":***********
+
+CREATE VIEW Top_Vendedores AS
+SELECT v.id_vendedor, u.nombre, COUNT(v.id_venta) AS total_ventas
+FROM Ventas v
+JOIN Usuarios u ON v.id_vendedor = u.id_usuario
+WHERE u.rol = 'vendedor'
+GROUP BY v.id_vendedor
+ORDER BY total_ventas DESC
+LIMIT 10;
+
+***********CONSULTAS PARA "Top_Productos":**********
+
+CREATE VIEW Top_Productos AS
+SELECT p.id_producto, p.nombre, AVG(pt.puntuacion) AS puntuacion_promedio
+FROM Productos p
+JOIN Puntuaciones pt ON p.id_producto = pt.id_producto
+GROUP BY p.id_producto
+ORDER BY puntuacion_promedio DESC
+LIMIT 10;
+
+***********INSERTS:************
+
+-- Tabla Usuarios
+INSERT INTO Usuarios (username, password, email, rol) VALUES 
+('user1', 'password1', 'user1@example.com', 'cliente'),
+('user2', 'password2', 'user2@example.com', 'vendedor'),
+('user3', 'password3', 'user3@example.com', 'cliente');
+
+-- Tabla Productos
+INSERT INTO Productos (id_usuario, nombre_producto, desc_prod, imagen_prod, precio, categoria) VALUES 
+(2, 'Camiseta Oficial', 'Camiseta oficial del equipo', 'camiseta.jpg', 49.99, 'hombre'),
+(2, 'Bufanda', 'Bufanda oficial del equipo', 'bufanda.jpg', 15.99, 'mujer'),
+(2, 'Gorra', 'Gorra oficial del equipo', 'gorra.jpg', 25.99, 'niños');
+
+-- Tabla Ventas
+INSERT INTO Ventas (id_producto, id_usuario_comp, id_usuario_vend, cantidad, total, estado) VALUES 
+(1, 1, 2, 1, 49.99, 'confirmada'),
+(2, 3, 2, 2, 31.98, 'pendiente'),
+(3, 1, 2, 1, 25.99, 'confirmada');
+
+-- Tabla Puntuaciones
+INSERT INTO Puntuaciones (id_producto, id_usuario, puntuacion, comentario) VALUES 
+(1, 1, 5, 'Excelente calidad'),
+(2, 3, 4, 'Muy buena bufanda, me gustó el diseño'),
+(3, 1, 3, 'Buena gorra, pero podría ser más cómoda');
+
+-- Tabla Historial_Compras
+INSERT INTO Historial_Compras (id_venta, fecha) VALUES 
+(1, CURRENT_DATE),
+(2, CURRENT_DATE),
+(3, CURRENT_DATE);
+
+-- Tabla Notificaciones
+INSERT INTO Notificaciones (id_usuario, mensaje, fecha_envio, leida) VALUES 
+(1, 'Gracias por tu compra de la Camiseta Oficial.', CURRENT_DATE, FALSE),
+(3, 'Tu pedido de la Bufanda está pendiente.', CURRENT_DATE, FALSE),
+(1, 'Gracias por tu compra de la Gorra.', CURRENT_DATE, TRUE);
+
+
