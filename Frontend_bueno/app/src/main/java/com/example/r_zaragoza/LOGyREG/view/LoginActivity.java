@@ -2,37 +2,37 @@ package com.example.r_zaragoza.LOGyREG.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.r_zaragoza.MainActivity;
 import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.LOGyREG.contracts.LoginContract;
 import com.example.r_zaragoza.LOGyREG.presenter.LoginPresenter;
+import com.example.r_zaragoza.UVdarAltaProd.view.UVMainActivity; // Nueva actividad para el vendedor
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity implements LoginContract.View {    private EditText etEmail, etPassword;
-    private Button btnLogin, btnRegister; // Añadimos el botón de registro
+public class LoginActivity extends AppCompatActivity implements LoginContract.View {
+    private EditText etEmail, etPassword;
+    private Button btnLogin, btnRegister;
     private LoginContract.Presenter presenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inicializar vistas
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnRegister = findViewById(R.id.btnRegister); // Inicializar el botón de registro
+        btnRegister = findViewById(R.id.btnRegister);
 
-        // Inicializar presenter
         presenter = new LoginPresenter(this);
 
-        // Configurar evento del botón de login
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,18 +40,15 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             }
         });
 
-        // Configurar evento del botón de registro
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Redirigir a la actividad de registro
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    // Implementación de los métodos de la interfaz View
     @Override
     public String getEmail() {
         return etEmail.getText().toString().trim();
@@ -64,8 +61,25 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @Override
     public void showLoginSuccess(String message) {
+        Log.e("", "llrgo");
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        // Navegar a otra actividad si es necesario
+
+        // Simulamos que el rol viene del servidor (esto debe ser una respuesta real)
+        String userRole = "vendedor"; // Este valor debe ser recuperado del servidor
+
+        Log.d("LoginActivity", "Rol del usuario: " + userRole);  // Para depuración
+
+        if (userRole.equals("vendedor")) {
+            Log.d("LoginActivity", "Redirigiendo a UVMainActivity...");  // Depuración
+            Intent intent = new Intent(this, UVMainActivity.class);
+            startActivity(intent);
+            finish(); // Finalizamos la actividad de login para que no regrese
+        } else {
+            Log.d("LoginActivity", "Redirigiendo a MainActivity...");  // Depuración
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Finalizamos la actividad de login para que no regrese
+        }
     }
 
     @Override

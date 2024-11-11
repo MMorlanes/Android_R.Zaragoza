@@ -1,0 +1,21 @@
+<!-- res/layout/activity_uvmain.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/btnAltaProducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dar de Alta Producto" />
+
+    <Button
+        android:id="@+id/btnListadoProductos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ver Listado de Productos" />
+
+</LinearLayout>

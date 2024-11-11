@@ -27,6 +27,7 @@
 
         <activity android:name=".LOGyREG.view.LoginActivity" />
         <activity android:name=".LOGyREG.view.RegisterActivity" />
+        <activity android:name=".UVdarAltaProd.view.UVMainActivity"></activity>
     </application>
 
 </manifest>
