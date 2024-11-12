@@ -11,8 +11,15 @@ public class Seller {
         this.salesCount = salesCount;
     }
 
-    // Getters y Setters
-    public int getUserId() { return userId; }
-    public String getUserName() { return userName; }
-    public int getSalesCount() { return salesCount; }
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public int getSalesCount() {
+        return salesCount;
+    }
 }

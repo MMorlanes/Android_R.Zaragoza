@@ -1,12 +1,10 @@
 package com.example.r_zaragoza.UCTop10Sellers.presenter;
 
 import android.util.Log;
-
 import com.example.r_zaragoza.UCTop10Sellers.contracts.UCTop10SellersContract;
 import com.example.r_zaragoza.UCTop10Sellers.model.Seller;
 import com.example.r_zaragoza.utils.ApiService;
 import com.example.r_zaragoza.utils.RetrofitClient;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -21,9 +19,6 @@ import retrofit2.Response;
 public class UCTop10SellersPresenter implements UCTop10SellersContract.Presenter {
     private UCTop10SellersContract.View view;
     private ApiService apiService;
-    int userId;
-    String userName;
-    int salesCount;
 
     public UCTop10SellersPresenter(UCTop10SellersContract.View view) {
         this.view = view;
@@ -32,9 +27,7 @@ public class UCTop10SellersPresenter implements UCTop10SellersContract.Presenter
 
     @Override
     public void loadTopSellers() {
-        Seller seller = new Seller(userId, userName, salesCount);
-
-        Call<ResponseBody> call = apiService.top_sellers(seller);
+        Call<ResponseBody> call = apiService.top_sellers();
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -46,9 +39,9 @@ public class UCTop10SellersPresenter implements UCTop10SellersContract.Presenter
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonSeller = jsonArray.getJSONObject(i);
-                            int userId = jsonSeller.getInt("userId");
-                            String userName = jsonSeller.getString("userName");
-                            int salesCount = jsonSeller.getInt("salesCount");
+                            int userId = jsonSeller.getInt("id_usuario");
+                            String userName = jsonSeller.getString("username");
+                            int salesCount = jsonSeller.getInt("total_ventas");
                             sellers.add(new Seller(userId, userName, salesCount));
                         }
 

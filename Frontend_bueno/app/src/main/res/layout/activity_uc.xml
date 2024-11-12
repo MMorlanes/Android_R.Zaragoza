@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Funciones del Cliente"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"
+            android:gravity="center"
+            android:textColor="@color/black" />
+
+        <!-- Botón: Listado de los 10 propietarios con más ventas -->
+        <Button
+            android:id="@+id/btnTop10Sellers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listado de los 10 propietarios con más ventas"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Puntuar una prenda concreta -->
+        <Button
+            android:id="@+id/btnRateItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Puntuar una prenda concreta"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Listado de los 10 productos más puntuados -->
+        <Button
+            android:id="@+id/btnTopRatedProducts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listado de los 10 productos más puntuados"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Filtrado por categorías -->
+        <Button
+            android:id="@+id/btnFilterCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filtrar por categorías"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Filtrado por texto -->
+        <Button
+            android:id="@+id/btnFilterByText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filtrar por texto"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Ver ficha descriptiva de la prenda -->
+        <Button
+            android:id="@+id/btnViewItemDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver ficha descriptiva de la prenda"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Confirmar compra -->
+        <Button
+            android:id="@+id/btnConfirmPurchase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmar compra"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Botón: Histórico de compras -->
+        <Button
+            android:id="@+id/btnPurchaseHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Histórico de compras"
+            android:layout_marginBottom="12dp" />
+
+    </LinearLayout>
+</ScrollView>

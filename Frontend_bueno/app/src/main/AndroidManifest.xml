@@ -30,7 +30,8 @@
         <activity android:name=".UVMainActivity"></activity>
         <activity android:name=".UVdarAltaProd.view.UVAddProductActivity"></activity>
         <activity android:name=".UVListarProd.view.UVListarProdActivity"></activity>
-
+        <activity android:name=".UCMainActivity"></activity>
+        <activity android:name=".UCTop10Sellers.view.Top10SellersActivity" />
     </application>
 
 </manifest>

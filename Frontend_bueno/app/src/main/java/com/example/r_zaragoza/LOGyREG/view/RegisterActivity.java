@@ -72,21 +72,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.dismiss();
 
-                    // Redirigir al usuario basado en el rol
-                    String userRole = getRol();
-                    Log.d("RegisterActivity", "Rol del usuario registrado: " + userRole);
-
-                    if ("vendedor".equalsIgnoreCase(userRole.trim())) {
-                        Intent intent = new Intent(RegisterActivity.this, UVMainActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+                    // Redirigir al usuario a la pantalla principal para iniciar sesión
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
                     finish();
                 })
                 .show();
     }
+
 
     @Override
     public void showRegisterError(String message) {

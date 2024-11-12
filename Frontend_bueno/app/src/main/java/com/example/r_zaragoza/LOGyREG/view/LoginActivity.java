@@ -12,6 +12,7 @@ import com.example.r_zaragoza.LOGyREG.contracts.LoginContract;
 import com.example.r_zaragoza.LOGyREG.presenter.LoginPresenter;
 import com.example.r_zaragoza.MainActivity;
 import com.example.r_zaragoza.R;
+import com.example.r_zaragoza.UCMainActivity;
 import com.example.r_zaragoza.UVMainActivity;
 
 import androidx.appcompat.app.AlertDialog;
@@ -74,10 +75,11 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                     if ("vendedor".equalsIgnoreCase(role.trim())) {
                         Intent intent = new Intent(LoginActivity.this, UVMainActivity.class);
                         startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    } else if ("cliente".equals(role)) {
+                        Intent intent = new Intent(this, UCMainActivity.class);
                         startActivity(intent);
                     }
+
                     finish();
                 })
                 .show();
