@@ -53,8 +53,8 @@ app.listen(PORT, '0.0.0.0', () => {
 //     "categoria": "mujer"
 // }
 
-// LISTAR LOS PRODUCTOS DE UN VENDEDOR -> (GET) http://localhost:3000/api/UV/seller/user2@example.com
-// TOP 10 VENDEDORES -> (GET) http://localhost:3000/api/UC/top-sellers
+// LISTAR LOS PRODUCTOS DE UN VENDEDOR -> (GET) http://localhost:3000/api/UV/seller/31
+// TOP 10 VENDEDORES -> (GET) http://localhost:3000/api/UC/top_sellers
 // PUNTUAR UN PRODUCTO -> (POST) http://localhost:3000/api/UC/rate
 // BODY PUNTUAR PRODUCTO
 // {

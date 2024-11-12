@@ -8,11 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.r_zaragoza.MainActivity;
-import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.LOGyREG.contracts.RegisterContract;
 import com.example.r_zaragoza.LOGyREG.presenter.RegisterPresenter;
-import com.example.r_zaragoza.UVdarAltaProd.view.UVMainActivity; // Actividad para el vendedor
+import com.example.r_zaragoza.MainActivity;
+import com.example.r_zaragoza.R;
+import com.example.r_zaragoza.UVMainActivity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     @Override
     public String getRol() {
-        return spinnerRol.getSelectedItem().toString();  // Obtener la selección del Spinner
+        return spinnerRol.getSelectedItem().toString();
     }
 
     @Override
@@ -72,21 +72,18 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.dismiss();
 
-                    // Obtén el rol seleccionado en el spinner al momento del registro
+                    // Redirigir al usuario basado en el rol
                     String userRole = getRol();
-                    Log.d("RegisterActivity", "Rol del usuario registrado: " + userRole); // Depuración
+                    Log.d("RegisterActivity", "Rol del usuario registrado: " + userRole);
 
-                    if (userRole.equals("vendedor")) {
-                        Log.d("RegisterActivity", "Redirigiendo a UVMainActivity...");  // Depuración
+                    if ("vendedor".equalsIgnoreCase(userRole.trim())) {
                         Intent intent = new Intent(RegisterActivity.this, UVMainActivity.class);
                         startActivity(intent);
-                        finish(); // Finalizamos la actividad de registro
                     } else {
-                        Log.d("RegisterActivity", "Redirigiendo a MainActivity...");  // Depuración
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
-                        finish(); // Finalizamos la actividad de registro
                     }
+                    finish();
                 })
                 .show();
     }

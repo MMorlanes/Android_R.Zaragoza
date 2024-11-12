@@ -1,4 +1,4 @@
-package com.example.r_zaragoza.UVdarAltaProd.view;
+package com.example.r_zaragoza;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.r_zaragoza.R;
-//import com.example.r_zaragoza.VendedorAltaProducto.view.VendedorAltaProductoActivity; // Asegúrate de tener esta actividad
-//import com.example.r_zaragoza.VendedorListado.view.VendedorListadoActivity; // Asegúrate de tener esta actividad
+import com.example.r_zaragoza.UVdarAltaProd.view.UVAddProductActivity;
+import com.example.r_zaragoza.UVListarProd.view.UVListarProdActivity; // Asegúrate de tener esta actividad
 
 public class UVMainActivity extends AppCompatActivity {
     @Override
@@ -25,10 +24,10 @@ public class UVMainActivity extends AppCompatActivity {
             startActivity(new Intent(this, UVAddProductActivity.class));  // Actividad para dar de alta productos
         });
 
-        /*btnListadoProductos.setOnClickListener(view -> {
+        btnListadoProductos.setOnClickListener(view -> {
             showToast("Ver Listado de Productos");
-            startActivity(new Intent(this, VendedorListadoActivity.class));  // Actividad para ver listado de productos
-        });*/
+            startActivity(new Intent(this, UVListarProdActivity.class));  // Actividad para ver listado de productos
+        });
     }
 
     private void showToast(String message) {

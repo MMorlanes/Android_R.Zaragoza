@@ -6,6 +6,6 @@ const UVController = require('../controllers/UVController');
 router.post('/addProducts', UVController.addProduct); 
 
 // Ruta para listar los productos de un vendedor específico
-router.get('/seller/:email', UVController.listMyProducts);
+router.get('/seller/:id_usuario', UVController.listMyProducts);
 
 module.exports = router;

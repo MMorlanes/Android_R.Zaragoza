@@ -2,24 +2,10 @@ const pool = require('../dbConfig');
 
 // Agregar un nuevo producto
 exports.createProduct = async (productData) => {
-    const { email, nombre_producto, desc_prod, imagen_prod, precio, categoria } = productData;
+    const { id_usuario, nombre_producto, desc_prod, imagen_prod, precio, categoria } = productData;
 
     try {
-        // Obtener el id_usuario a partir del email
-        const userQuery = `
-            SELECT id_usuario FROM Usuarios WHERE email = $1
-        `;
-        const userResult = await pool.query(userQuery, [email]);
-
-        if (userResult.rows.length === 0) {
-            console.log("Usuario no encontrado con el email:", email);
-            return { error: "Usuario no encontrado" };
-        }
-
-        const id_usuario = userResult.rows[0].id_usuario;
-        console.log("ID de usuario obtenido:", id_usuario);
-
-        // Inserción del nuevo producto con el id_usuario obtenido
+        // Inserción del nuevo producto
         const productQuery = `
             INSERT INTO productos (id_usuario, nombre_producto, desc_prod, imagen_prod, precio, categoria)
             VALUES ($1, $2, $3, $4, $5, $6)
@@ -36,19 +22,23 @@ exports.createProduct = async (productData) => {
     }
 };
 
-
 // Listar productos por vendedor
-exports.getProductsBySeller = async (email) => {
+exports.getProductsBySeller = async (id_usuario) => {
     const query = `
         SELECT p.id_producto, p.nombre_producto, p.desc_prod, p.precio, p.imagen_prod, p.categoria
         FROM productos p
-        JOIN usuarios u ON p.id_usuario = u.id_usuario
-        WHERE u.email = $1
+        WHERE p.id_usuario = $1
     `;
-    console.log("Consultando productos del vendedor con email:", email);
+    console.log("Consultando productos del vendedor con ID:", id_usuario);
 
-    const result = await pool.query(query, [email]);
+    try {
+        const result = await pool.query(query, [id_usuario]);
 
-    console.log("Productos encontrados del vendedor:", result.rows.length);
-    return result.rows;
+        console.log("Productos encontrados del vendedor:", result.rows.length);
+        return result.rows;
+    } catch (error) {
+        console.error("Error al consultar productos del vendedor:", error.message);
+        throw error;
+    }
 };
+

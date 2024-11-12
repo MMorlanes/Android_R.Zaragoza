@@ -8,12 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.r_zaragoza.MainActivity;
-import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.LOGyREG.contracts.LoginContract;
 import com.example.r_zaragoza.LOGyREG.presenter.LoginPresenter;
-import com.example.r_zaragoza.UVdarAltaProd.view.UVMainActivity; // Nueva actividad para el vendedor
+import com.example.r_zaragoza.MainActivity;
+import com.example.r_zaragoza.R;
+import com.example.r_zaragoza.UVMainActivity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginContract.View {
@@ -60,26 +61,26 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void showLoginSuccess(String message) {
-        Log.e("", "llrgo");
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    public void showLoginSuccess(String message, String role) {
+        new AlertDialog.Builder(this)
+                .setTitle("Login Exitoso")
+                .setMessage(message)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    dialog.dismiss();
 
-        // Simulamos que el rol viene del servidor (esto debe ser una respuesta real)
-        String userRole = "vendedor"; // Este valor debe ser recuperado del servidor
+                    // Redirigir al usuario basado en el rol devuelto por el backend
+                    Log.d("LoginActivity", "Rol del usuario: " + role);
 
-        Log.d("LoginActivity", "Rol del usuario: " + userRole);  // Para depuración
-
-        if (userRole.equals("vendedor")) {
-            Log.d("LoginActivity", "Redirigiendo a UVMainActivity...");  // Depuración
-            Intent intent = new Intent(this, UVMainActivity.class);
-            startActivity(intent);
-            finish(); // Finalizamos la actividad de login para que no regrese
-        } else {
-            Log.d("LoginActivity", "Redirigiendo a MainActivity...");  // Depuración
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish(); // Finalizamos la actividad de login para que no regrese
-        }
+                    if ("vendedor".equalsIgnoreCase(role.trim())) {
+                        Intent intent = new Intent(LoginActivity.this, UVMainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                    finish();
+                })
+                .show();
     }
 
     @Override

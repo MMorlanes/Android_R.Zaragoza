@@ -1,10 +1,11 @@
 package com.example.r_zaragoza.UVdarAltaProd.presenter;
 
+import android.util.Log;
+
 import com.example.r_zaragoza.UVdarAltaProd.contracts.UVAddProductContract;
 import com.example.r_zaragoza.UVdarAltaProd.model.Product;
 import com.example.r_zaragoza.utils.ApiService;
 import com.example.r_zaragoza.utils.RetrofitClient;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,12 +22,15 @@ public class UVAddProductPresenter implements UVAddProductContract.Presenter {
 
     @Override
     public void onAddProductClicked() {
+        // Obtener datos de la vista
+        int userId = view.getUserId();
         String name = view.getProductName();
         String description = view.getProductDescription();
         String image = view.getProductImage();
         String category = view.getProductCategory();
         double price;
 
+        // Validar precio
         try {
             price = Double.parseDouble(view.getProductPrice());
         } catch (NumberFormatException e) {
@@ -34,17 +38,19 @@ public class UVAddProductPresenter implements UVAddProductContract.Presenter {
             return;
         }
 
+        // Validar campos obligatorios
         if (name.isEmpty() || description.isEmpty() || category.isEmpty() || price <= 0) {
             view.showProductAddedError("Todos los campos son obligatorios.");
             return;
         }
 
-        // Suponemos que el idUsuario se obtiene de alguna parte, por ejemplo, del perfil del usuario logueado
-        int idUsuario = 1; // Esto puede ser dinámico dependiendo de tu implementación
+        // Crear objeto producto
+        Product product = new Product(userId, name, description, image, price, category);
 
-        Product product = new Product(idUsuario, name, description, image, price, category);
+        // Log para verificar los datos enviados
+        Log.d("AgregarProducto", "Producto a enviar: " + product);
 
-        // Hacer la petición al servidor para agregar el producto
+        // Enviar datos al servidor
         Call<ResponseBody> call = apiService.addProduct(product);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -52,12 +58,14 @@ public class UVAddProductPresenter implements UVAddProductContract.Presenter {
                 if (response.isSuccessful()) {
                     view.showProductAddedSuccess("Producto agregado exitosamente.");
                 } else {
+                    Log.e("AgregarProducto", "Error en respuesta: " + response.code());
                     view.showProductAddedError("Error al agregar el producto.");
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("AgregarProducto", "Error en la conexión: " + t.getMessage());
                 view.showProductAddedError("Error de conexión: " + t.getMessage());
             }
         });

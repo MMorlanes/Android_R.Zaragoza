@@ -4,7 +4,7 @@ public interface LoginContract {
     interface View {
         String getEmail();
         String getPassword();
-        void showLoginSuccess(String message);
+        void showLoginSuccess(String message, String role);
         void showLoginError(String message);
     }
 

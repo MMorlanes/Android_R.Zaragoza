@@ -29,13 +29,17 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         User user = new User(username, email, password, rol);
 
         // Validar campos si es necesario
+        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || rol.isEmpty()) {
+            view.showRegisterError("Por favor, complete todos los campos");
+            return;
+        }
 
         // Enviar petición al backend
         Call<ResponseBody> call = apiService.register(user);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     view.showRegisterSuccess("Registro exitoso");
                 } else {
                     view.showRegisterError("Error en el registro");
@@ -48,5 +52,4 @@ public class RegisterPresenter implements RegisterContract.Presenter {
             }
         });
     }
-
 }

@@ -3,7 +3,7 @@ const router = express.Router();
 const UCController = require('../controllers/UCController'); 
 
 // Ruta para listar los 10 propietarios con más ventas
-router.get('/top-sellers', UCController.listTopSellers);
+router.get('/top_sellers', UCController.listTopSellers);
 
 // Ruta para puntuar un producto
 router.post('/rate', UCController.rateProduct);
