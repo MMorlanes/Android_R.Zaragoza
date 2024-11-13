@@ -37,9 +37,9 @@ exports.listTopRatedProducts = async (req, res) => {
 // Listar productos por nombre de categoría
 exports.listProductsByCategory = async (req, res) => {
     try {
-        const category = req.params.category; // Cambié "id" por "category" para capturar el nombre de la categoría
-        const products = await UCModel.getProductsByCategory(category);
-        res.status(200).json(products);
+        const category = req.params.category; // Obtiene la categoría desde los parámetros de la ruta
+        const products = await UCModel.getProductsByCategory(category); // Llama al modelo para obtener los productos
+        res.status(200).json(products); // Devuelve los productos en formato JSON
     } catch (error) {
         res.status(500).json({ message: 'Error al listar productos por categoría', error });
     }

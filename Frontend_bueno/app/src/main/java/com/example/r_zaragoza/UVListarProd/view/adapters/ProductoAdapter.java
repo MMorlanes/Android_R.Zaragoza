@@ -9,16 +9,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.r_zaragoza.R;
-import com.example.r_zaragoza.UVListarProd.model.Producto;
+import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
-    private List<Producto> productos;
+    private List<UVListarProdModel> productos;
 
-    public ProductoAdapter(List<Producto> productos) {
+    public ProductoAdapter(List<UVListarProdModel> productos) {
         this.productos = productos;
     }
 
@@ -31,11 +31,11 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
     @Override
     public void onBindViewHolder(ProductoViewHolder holder, int position) {
-        Producto producto = productos.get(position);
+        UVListarProdModel producto = productos.get(position);
 
         // Asignar los datos a las vistas
         holder.nombre.setText(producto.getNombre_producto());
-        holder.descripcion.setText(producto.getDescripcion_producto());
+        holder.descripcion.setText(producto.getDesc_producto());
 
         // Agregar "€" al precio y "ud" al stock
         holder.precio.setText("Precio: " + producto.getPrecio() + " €");

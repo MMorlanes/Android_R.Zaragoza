@@ -1,7 +1,7 @@
 package com.example.r_zaragoza.utils;
 
 import com.example.r_zaragoza.LOGyREG.model.User;
-import com.example.r_zaragoza.UVListarProd.model.Producto;
+import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.example.r_zaragoza.UVdarAltaProd.model.Product;
 
 import java.util.List;
@@ -26,13 +26,17 @@ public interface ApiService {
 
     // Ruta para obtener los productos de un vendedor específico
     @GET("/api/UV/seller/{id_usuario}")
-    Call<List<Producto>> getProductosVendedor(@Path("id_usuario") int idUsuario);
+    Call<List<UVListarProdModel>> getProductosVendedor(@Path("id_usuario") int idUsuario);
 
     @GET("api/UC/top_sellers")
     Call<ResponseBody> top_sellers();
 
     @GET("api/UC/top-rated")
-    Call<List<Producto>> getTopRatedProducts();
+    Call<List<UVListarProdModel>> getTopRatedProducts();
+
+    @GET("api/UC/products/categories/{nombreCategoria}")
+    Call<List<UVListarProdModel>> obtenerProductosPorCategoria(@Path("nombreCategoria") String nombreCategoria);
+
 
 
 }

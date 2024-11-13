@@ -3,13 +3,13 @@ package com.example.r_zaragoza.UVListarProd.model;
 import java.util.List;
 
 public class ProductosResponse {
-    private List<Producto> productos;
+    private List<UVListarProdModel> productos;
 
-    public List<Producto> getProductos() {
+    public List<UVListarProdModel> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<Producto> productos) {
+    public void setProductos(List<UVListarProdModel> productos) {
         this.productos = productos;
     }
 }

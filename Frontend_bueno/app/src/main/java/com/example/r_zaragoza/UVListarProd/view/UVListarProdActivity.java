@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.UVListarProd.contracts.UVListarProdContract;
-import com.example.r_zaragoza.UVListarProd.model.Producto;
+import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.example.r_zaragoza.UVListarProd.presenter.UVListarProdPresenter;
 import com.example.r_zaragoza.UVListarProd.view.adapters.ProductoAdapter;
 
@@ -52,7 +52,7 @@ public class UVListarProdActivity extends AppCompatActivity implements UVListarP
     }
 
     @Override
-    public void showProductos(List<Producto> productos) {
+    public void showProductos(List<UVListarProdModel> productos) {
         if (productos != null && !productos.isEmpty()) {
             Log.d("ListarProductosActivity", "Mostrando productos: " + productos.size() + " productos obtenidos.");
             productoAdapter = new ProductoAdapter(productos);

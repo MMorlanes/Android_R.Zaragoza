@@ -22,6 +22,53 @@
             android:gravity="center"
             android:textColor="@color/black" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categorias:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp"
+            android:gravity="center"
+            android:textColor="@color/black" />
+
+        <!-- Contenedor horizontal para los botones de categorías -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <!-- Botón: Categoría Accesorios -->
+            <Button
+                android:id="@+id/btnCategoryAccessories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Accesorios"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Botón: Categoría Verano -->
+            <Button
+                android:id="@+id/btnCategorySummer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Verano"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp" />
+
+            <!-- Botón: Categoría Ropa -->
+            <Button
+                android:id="@+id/btnCategoryClothing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ropa"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
         <!-- Botón: Listado de los 10 propietarios con más ventas -->
         <Button
             android:id="@+id/btnTop10Sellers"
@@ -44,14 +91,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Listado de los 10 productos más puntuados"
-            android:layout_marginBottom="12dp" />
-
-        <!-- Botón: Filtrado por categorías -->
-        <Button
-            android:id="@+id/btnFilterCategories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Filtrar por categorías"
             android:layout_marginBottom="12dp" />
 
         <!-- Botón: Filtrado por texto -->

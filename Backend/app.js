@@ -63,8 +63,8 @@ app.listen(PORT, '0.0.0.0', () => {
 //     "puntuacion": 4,
 //     "comentario": "Producto excelente"
 //   }
-// 10 PRODUCTOS MEJOR VALORADOS (SALEN 6 PRODUCTOS, AÑADIR MÁS DE 10 PARA VER SI VA CORRECTAMENTE) -> (GET) http://localhost:3000/api/UC/top-rated
-// LISTAR TODOS LOS PRODUCTOS POR CATEGORIA -> (GET) http://localhost:3000/api/products/categories/hombre
+// 10 PRODUCTOS MEJOR VALORADOS -> (GET) http://localhost:3000/api/UC/top-rated
+// LISTAR TODOS LOS PRODUCTOS POR CATEGORIA -> (GET) http://localhost:3000/api/UC/products/categories/accesorio
 // FILTRAR POR LO QUE ESCRIBA EL USUARIO (GET) -> http://localhost:3000/api/products/search?search=camiseta
 // VER DETALLES DE UN PRODUCTO ESPECIFICO -> (GET) http://localhost:3000/api/UC/1 
 // FINALIZAR COMPRA USUARIO -> (POST) http://localhost:3000/api/UC/purchase

@@ -101,6 +101,7 @@ exports.getProductsByCategory = async (category) => {
     return result.rows;
 };
 
+
 // Listar productos con filtros (por nombre de categoría y búsqueda)
 exports.getProducts = async ({ categoria, search }) => {
     let query = `

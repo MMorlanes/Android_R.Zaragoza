@@ -7,7 +7,7 @@ public class RetrofitClient {
     private static Retrofit retrofit = null;
 
     // Reemplaza "http://localhost:3000/" por la URL base de tu API
-    private static final String BASE_URL = "http://192.168.1.69:3000/";
+    private static final String BASE_URL = "http://172.17.21.118:3000/";
 
     public static Retrofit getClient() {
         if (retrofit == null) {

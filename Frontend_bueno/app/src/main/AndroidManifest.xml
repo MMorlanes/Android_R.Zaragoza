@@ -32,6 +32,9 @@
         <activity android:name=".UVListarProd.view.UVListarProdActivity"></activity>
         <activity android:name=".UCMainActivity"></activity>
         <activity android:name=".UCTop10Sellers.view.Top10SellersActivity" />
+        <activity android:name=".UCTop10Products.view.Top10ProductActivity" />
+        <activity android:name=".UCFiltradoCateg.view.UCFiltradoCategActivity" />
+
     </application>
 
 </manifest>

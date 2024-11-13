@@ -15,7 +15,7 @@ router.get('/top-rated', UCController.listTopRatedProducts);
 router.get('/search', UCController.listProducts);
 
 // Ruta para listar productos por nombre de categoría
-router.get('/categories/:category', UCController.listProductsByCategory);
+router.get('/products/categories/:category', UCController.listProductsByCategory);
 
 // Ruta para ver los detalles de un producto específico
 router.get('/:id', UCController.getProductDetails);

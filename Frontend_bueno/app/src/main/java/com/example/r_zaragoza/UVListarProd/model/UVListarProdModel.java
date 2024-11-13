@@ -1,9 +1,9 @@
 package com.example.r_zaragoza.UVListarProd.model;
 
-public class Producto {
+public class UVListarProdModel {
     private int id_producto;
     private String nombre_producto;
-    private String descripcion_producto;
+    private String desc_producto;
     private String precio;
     private String imagen_prod;
 
@@ -23,12 +23,12 @@ public class Producto {
         this.precio = precio;
     }
 
-    public String getDescripcion_producto() {
-        return descripcion_producto;
+    public String getDesc_producto() {
+        return desc_producto;
     }
 
     public void setDescripcion_producto(String descripcion_producto) {
-        this.descripcion_producto = descripcion_producto;
+        this.desc_producto = descripcion_producto;
     }
 
     public String getNombre_producto() {
