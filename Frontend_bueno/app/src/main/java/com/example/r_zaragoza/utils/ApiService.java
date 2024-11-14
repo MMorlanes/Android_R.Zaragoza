@@ -1,7 +1,9 @@
 package com.example.r_zaragoza.utils;
 
 import com.example.r_zaragoza.LOGyREG.model.User;
+import com.example.r_zaragoza.UCFinalizarCompra.model.ConfirmPurchaseRequest;
 import com.example.r_zaragoza.UCHistoricoCompras.model.Compra;
+import com.example.r_zaragoza.UCPuntuarProd.model.RateProdRequest;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.example.r_zaragoza.UVdarAltaProd.model.Product;
 
@@ -53,5 +55,15 @@ public interface ApiService {
     // Ruta para obtener el historial de compras de un usuario
     @GET("api/UC/history/{id}")
     Call<List<Compra>> getUserHistory(@Path("id") int userId);
+
+    // Ruta para calificar un producto
+    @POST("api/UC/rate")
+    Call<Void> rateProduct(@Body RateProdRequest rating);
+
+    // Ruta para realizar una compra
+    @POST("api/UC/purchase")
+    Call<ResponseBody> makePurchase(@Body ConfirmPurchaseRequest purchaseRequest);
+
+
 
 }

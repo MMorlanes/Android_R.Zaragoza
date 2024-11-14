@@ -46,7 +46,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         if (producto.getImagen_prod() != null && !producto.getImagen_prod().isEmpty()) {
             Picasso.get()
                     .load(producto.getImagen_prod())
-                    .placeholder(R.drawable.logo)
+                    .placeholder(R.drawable.toalla)
                     .error(R.drawable.logo)
                     .into(holder.imagen);
         } else {

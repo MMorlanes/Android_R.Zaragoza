@@ -68,16 +68,6 @@ public class UCMainActivity extends AppCompatActivity {
                 startActivity(intent);
          }
 });
-        /*
-        btnViewItemDetails.setOnClickListener(view -> {
-            showToast("Ver Listado de Productos");
-            startActivity(new Intent(this, UVListarProdActivity.class));  // Actividad para ver listado de productos
-        });
-
-        btnConfirmPurchase.setOnClickListener(view -> {
-            showToast("Dar de Alta Producto");
-            startActivity(new Intent(this, UVAddProductActivity.class));  // Actividad para dar de alta productos
-        });*/
 
         btnPurchaseHistory.setOnClickListener(view -> {
             showToast("Obteniendo el historico de compra...");

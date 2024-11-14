@@ -19,24 +19,8 @@ exports.getTop10Vendedores = async () => {
 
 
 // Puntuar un producto
-exports.rateProduct = async ({ id_producto, email, puntuacion, comentario }) => {
-    console.log("Datos para puntuar el producto:", { id_producto, email, puntuacion, comentario });
-    
-    // Consultar el id_usuario correspondiente al email
-    const userQuery = `
-        SELECT id_usuario
-        FROM usuarios
-        WHERE email = $1
-    `;
-    const userResult = await pool.query(userQuery, [email]);
-
-    if (userResult.rows.length === 0) {
-        console.error("Usuario no encontrado con el email:", email);
-        throw new Error('Usuario no encontrado.');
-    }
-
-    const id_usuario = userResult.rows[0].id_usuario;
-    console.log("ID de usuario obtenido:", id_usuario);
+exports.rateProduct = async ({ id_producto, id_usuario, puntuacion, comentario }) => {
+    console.log("Datos para puntuar el producto:", { id_producto, id_usuario, puntuacion, comentario });
 
     // Verificar si el usuario ya puntuó el producto
     const checkQuery = `
@@ -69,6 +53,7 @@ exports.rateProduct = async ({ id_producto, email, puntuacion, comentario }) => 
         throw new Error('No se pudo puntuar el producto.');
     }
 };
+
 
 // Obtener los 10 productos más puntuados
 exports.getTop10Prod = async () => {
@@ -152,14 +137,28 @@ exports.getProductDetails = async (productId) => {
 };
 
 // Confirmar compra (crear un pedido)
-exports.confirmPurchase = async ({ id_usuario, productos }) => {
+exports.confirmPurchase = async ({ id_usuario, producto_id }) => {
     const client = await pool.connect();
     try {
+        // Verificar si el usuario es cliente
+        const userQuery = `
+            SELECT rol FROM usuarios WHERE id_usuario = $1
+        `;
+        const userResult = await client.query(userQuery, [id_usuario]);
+
+        if (userResult.rows.length === 0 || userResult.rows[0].rol !== 'cliente') {
+            throw new Error('Solo los usuarios con rol de cliente pueden confirmar compras');
+        }
+
         await client.query('BEGIN');
 
-        // Calcular el monto total del pedido
-        const montoTotal = productos.reduce((sum, item) => sum + item.precio_unitario * item.cantidad, 0);
-        console.log("Creando pedido con precio total:", montoTotal);
+        // Obtener el precio unitario del producto
+        const productQuery = `
+            SELECT precio FROM productos WHERE id_producto = $1
+        `;
+        const productResult = await client.query(productQuery, [producto_id]);
+        if (productResult.rows.length === 0) throw new Error('Producto no encontrado');
+        const precio_unitario = productResult.rows[0].precio;
 
         // Crear el detalle del pedido en Detalle_pedido
         const detallePedidoQuery = `
@@ -167,19 +166,17 @@ exports.confirmPurchase = async ({ id_usuario, productos }) => {
             VALUES ($1, $2)
             RETURNING id_detalle_pedido
         `;
-        const detallePedidoResult = await client.query(detallePedidoQuery, [id_usuario, montoTotal]);
+        const detallePedidoResult = await client.query(detallePedidoQuery, [id_usuario, precio_unitario]);
         const id_detalle_pedido = detallePedidoResult.rows[0].id_detalle_pedido;
         console.log("Detalle de pedido creado con ID:", id_detalle_pedido);
 
-        // Insertar cada producto en la tabla Pedido
+        // Insertar el producto en la tabla Pedido, incluyendo precio unitario
         const pedidoQuery = `
-            INSERT INTO Pedido (id_detalle_pedido, id_producto, cantidad, precio_unitario, estado)
-            VALUES ($1, $2, $3, $4, 'completado')
+            INSERT INTO Pedido (id_detalle_pedido, id_usuario, id_producto, precio_unitario)
+            VALUES ($1, $2, $3, $4)
         `;
-        for (let item of productos) {
-            await client.query(pedidoQuery, [id_detalle_pedido, item.producto_id, item.cantidad, item.precio_unitario]);
-            console.log("Producto agregado al pedido:", item);
-        }
+        await client.query(pedidoQuery, [id_detalle_pedido, id_usuario, producto_id, precio_unitario]);
+        console.log("Producto agregado al pedido con ID de detalle:", id_detalle_pedido);
 
         await client.query('COMMIT');
         return id_detalle_pedido;
@@ -191,6 +188,8 @@ exports.confirmPurchase = async ({ id_usuario, productos }) => {
         client.release();
     }
 };
+
+
 
 // Ver historial de compras (detalle_pedido) del usuario
 exports.getPurchaseHistory = async (id_usuario) => {

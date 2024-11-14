@@ -38,8 +38,8 @@
         <activity android:name=".UCBusquedaTexto.view.BusquedaTextoActivity" />
         <activity android:name=".UCDetalleProd.view.DetalleProdActivity" />
         <activity android:name=".UCHistoricoCompras.view.UCHistoricoComprasActivity" />
-
-
+        <activity android:name=".UCPuntuarProd.view.PuntuarProdActivity" />
+        <activity android:name=".UCFinalizarCompra.view.FinalizarCompraActivity" />
     </application>
 
 </manifest>
