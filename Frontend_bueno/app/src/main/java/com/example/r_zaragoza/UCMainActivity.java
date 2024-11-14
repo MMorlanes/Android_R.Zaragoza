@@ -3,31 +3,33 @@ package com.example.r_zaragoza;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.r_zaragoza.UCBusquedaTexto.view.BusquedaTextoActivity;
 import com.example.r_zaragoza.UCFiltradoCateg.view.UCFiltradoCategActivity;
 import com.example.r_zaragoza.UCTop10Products.view.Top10ProductActivity;
 import com.example.r_zaragoza.UCTop10Sellers.view.Top10SellersActivity;
 
 public class UCMainActivity extends AppCompatActivity {
+    private EditText searchBar;
+    private Button searchButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc);
+        searchBar = findViewById(R.id.search_bar);
+        searchButton = findViewById(R.id.search_button);
 
         Button btnTop10Sellers = findViewById(R.id.btnTop10Sellers);
-        Button btnRateItem = findViewById(R.id.btnRateItem);
         Button btnTopRatedProducts = findViewById(R.id.btnTopRatedProducts);
         // Categorias
         Button btnCategoryAccessories = findViewById(R.id.btnCategoryAccessories);
         Button btnCategorySummer = findViewById(R.id.btnCategorySummer);
         Button btnCategoryClothing = findViewById(R.id.btnCategoryClothing);
 
-        Button btnFilterByText = findViewById(R.id.btnFilterByText);
-        Button btnViewItemDetails = findViewById(R.id.btnViewItemDetails);
-        Button btnConfirmPurchase = findViewById(R.id.btnConfirmPurchase);
         Button btnPurchaseHistory = findViewById(R.id.btnPurchaseHistory);
 
         btnTop10Sellers.setOnClickListener(view -> {
@@ -56,12 +58,16 @@ public class UCMainActivity extends AppCompatActivity {
             startActivityWithCategory("ropa");
         });
         // Fin Categorias
-        /*
-        btnFilterByText.setOnClickListener(view -> {
-            showToast("Dar de Alta Producto");
-            startActivity(new Intent(this, UVAddProductActivity.class));  // Actividad para dar de alta productos
-        });
 
+        searchButton.setOnClickListener(v -> {
+            String query = searchBar.getText().toString().trim();
+            if (!query.isEmpty()) {
+                Intent intent = new Intent(this, BusquedaTextoActivity.class);
+                intent.putExtra("query", query);
+                startActivity(intent);
+         }
+});
+        /*
         btnViewItemDetails.setOnClickListener(view -> {
             showToast("Ver Listado de Productos");
             startActivity(new Intent(this, UVListarProdActivity.class));  // Actividad para ver listado de productos

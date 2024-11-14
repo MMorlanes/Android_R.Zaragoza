@@ -1,0 +1,56 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_margin="8dp"
+    android:elevation="2dp">
+
+    <!-- Imagen del producto -->
+    <ImageView
+        android:id="@+id/ivProductoImagen"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Nombre del producto -->
+    <TextView
+        android:id="@+id/tvProductoNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end" />
+
+    <!-- Descripción del producto -->
+    <TextView
+        android:id="@+id/tvProductoDescripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Precio del producto -->
+    <TextView
+        android:id="@+id/tvProductoPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Stock del producto -->
+    <TextView
+        android:id="@+id/tvProductoStock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_marginBottom="8dp" />
+
+</LinearLayout>

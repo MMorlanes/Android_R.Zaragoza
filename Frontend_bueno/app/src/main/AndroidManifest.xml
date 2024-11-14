@@ -34,6 +34,10 @@
         <activity android:name=".UCTop10Sellers.view.Top10SellersActivity" />
         <activity android:name=".UCTop10Products.view.Top10ProductActivity" />
         <activity android:name=".UCFiltradoCateg.view.UCFiltradoCategActivity" />
+        <!-- Actividad para la busqueda de texto -->
+        <activity android:name=".UCBusquedaTexto.view.BusquedaTextoActivity" />
+        <activity android:name=".UCDetalleProd.view.DetalleProdActivity" />
+
 
     </application>
 

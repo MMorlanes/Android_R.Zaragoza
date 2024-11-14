@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -37,6 +38,15 @@ public interface ApiService {
     @GET("api/UC/products/categories/{nombreCategoria}")
     Call<List<UVListarProdModel>> obtenerProductosPorCategoria(@Path("nombreCategoria") String nombreCategoria);
 
+    @GET("api/UC/{id_producto}")
+    Call<UVListarProdModel> getProductoDetalle(@Path("id_producto") int idProducto);
 
+    // Ruta para buscar productos por texto
+    @GET("api/UC/search")
+    Call<List<UVListarProdModel>> searchProducts(@Query("search") String searchQuery);
+
+    //Ruta para los detalles de los productos
+    @GET("api/UC/{id}")
+    Call<UVListarProdModel> getProductDetails(@Path("id") int id);
 
 }

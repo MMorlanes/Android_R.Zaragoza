@@ -1,3 +1,4 @@
+
 package com.example.r_zaragoza.UVListarProd.view;
 
 import android.content.SharedPreferences;
@@ -14,10 +15,17 @@ import com.example.r_zaragoza.UVListarProd.contracts.UVListarProdContract;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.example.r_zaragoza.UVListarProd.presenter.UVListarProdPresenter;
 import com.example.r_zaragoza.UVListarProd.view.adapters.ProductoAdapter;
+import com.example.r_zaragoza.utils.ApiService;
+import com.example.r_zaragoza.utils.RetrofitClient;
 
 import java.util.List;
 
-public class UVListarProdActivity extends AppCompatActivity implements UVListarProdContract.View {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class UVListarProdActivity extends AppCompatActivity implements UVListarProdContract.View, ProductoAdapter.OnProductoClickListener {
+
     private RecyclerView recyclerView;
     private ProductoAdapter productoAdapter;
     private UVListarProdContract.Presenter presenter;
@@ -54,20 +62,28 @@ public class UVListarProdActivity extends AppCompatActivity implements UVListarP
     @Override
     public void showProductos(List<UVListarProdModel> productos) {
         if (productos != null && !productos.isEmpty()) {
-            Log.d("ListarProductosActivity", "Mostrando productos: " + productos.size() + " productos obtenidos.");
-            productoAdapter = new ProductoAdapter(productos);
+            productoAdapter = new ProductoAdapter(productos, this);
             recyclerView.setAdapter(productoAdapter);
         } else {
-            Log.e("ListarProductosActivity", "No se encontraron productos.");
             showError("No se encontraron productos para mostrar.");
         }
     }
 
-
     @Override
     public void showError(String message) {
-        // Mostrar el mensaje de error
         Log.e("ListarProductosActivity", "Error: " + message);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProductoClick(UVListarProdModel producto) {
+        int idProducto = producto.getId_producto();
+        loadProductoDetalle(idProducto);
+    }
+
+    private void loadProductoDetalle(int idProducto) {
+        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+        Call<UVListarProdModel> call = apiService.getProductoDetalle(idProducto);
+
     }
 }

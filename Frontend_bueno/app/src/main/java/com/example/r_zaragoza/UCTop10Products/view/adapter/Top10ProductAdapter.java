@@ -1,6 +1,7 @@
 package com.example.r_zaragoza.UCTop10Products.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.r_zaragoza.R;
+import com.example.r_zaragoza.UCDetalleProd.view.DetalleProdActivity;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 
 import java.util.List;
@@ -45,6 +47,14 @@ public class Top10ProductAdapter extends RecyclerView.Adapter<Top10ProductAdapte
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .into(holder.imagen);
+
+        // Agregar OnClickListener para abrir DetalleProdActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, DetalleProdActivity.class);
+            intent.putExtra("productId", producto.getId_producto());
+            intent.putExtra("isClient", true); // Cambiar según la lógica de tu aplicación
+            context.startActivity(intent);
+        });
     }
 
     @Override

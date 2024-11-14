@@ -1,5 +1,6 @@
 package com.example.r_zaragoza.UVListarProd.view.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.r_zaragoza.R;
+import com.example.r_zaragoza.UCDetalleProd.view.DetalleProdActivity;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.squareup.picasso.Picasso;
 
@@ -17,15 +19,17 @@ import java.util.List;
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
     private List<UVListarProdModel> productos;
+    private OnProductoClickListener listener;
 
-    public ProductoAdapter(List<UVListarProdModel> productos) {
+    public ProductoAdapter(List<UVListarProdModel> productos, OnProductoClickListener listener) {
         this.productos = productos;
+        this.listener = listener;
     }
 
     @Override
     public ProductoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_card_producto, parent, false); // Asegúrate de que este layout tiene los IDs correctos
+                .inflate(R.layout.activity_card_producto, parent, false);
         return new ProductoViewHolder(itemView);
     }
 
@@ -33,40 +37,44 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     public void onBindViewHolder(ProductoViewHolder holder, int position) {
         UVListarProdModel producto = productos.get(position);
 
-        // Asignar los datos a las vistas
         holder.nombre.setText(producto.getNombre_producto());
         holder.descripcion.setText(producto.getDesc_producto());
-
-        // Agregar "€" al precio y "ud" al stock
         holder.precio.setText("Precio: " + producto.getPrecio() + " €");
 
-        // Cargar la imagen si está disponible (usando Picasso)
         if (producto.getImagen_prod() != null && !producto.getImagen_prod().isEmpty()) {
             Picasso.get()
-                    .load(producto.getImagen_prod())  // URL de la imagen del producto
-                    .placeholder(R.drawable.logo) // Imagen por defecto mientras se carga
-                    .error(R.drawable.logo)       // Imagen por defecto si falla la carga
-                    .into(holder.imagen);            // Asignar la imagen al ImageView del ViewHolder
+                    .load(producto.getImagen_prod())
+                    .placeholder(R.drawable.logo)
+                    .error(R.drawable.logo)
+                    .into(holder.imagen);
         } else {
-            // Si no hay URL de imagen, muestra la imagen por defecto
-            holder.imagen.setImageResource(R.drawable.logo);  // Imagen por defecto
+            holder.imagen.setImageResource(R.drawable.logo);
         }
-    }
 
+        // Agregar OnClickListener para abrir DetalleProdActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), DetalleProdActivity.class);
+            intent.putExtra("productId", producto.getId_producto());
+            intent.putExtra("isClient", false); // Cambiar según la lógica de tu aplicación
+            holder.itemView.getContext().startActivity(intent);
+        });
+    }
 
     @Override
     public int getItemCount() {
         return productos.size();
     }
 
-    public static class ProductoViewHolder extends RecyclerView.ViewHolder {
+    public interface OnProductoClickListener {
+        void onProductoClick(UVListarProdModel producto);
+    }
 
-        TextView nombre, descripcion, precio, stock;
+    public static class ProductoViewHolder extends RecyclerView.ViewHolder {
+        TextView nombre, descripcion, precio;
         ImageView imagen;
 
         public ProductoViewHolder(View itemView) {
             super(itemView);
-            // Asegúrate de que estos IDs coincidan con los que tienes en el archivo item_producto.xml
             nombre = itemView.findViewById(R.id.tvProductoNombre);
             descripcion = itemView.findViewById(R.id.tvProductoDescripcion);
             precio = itemView.findViewById(R.id.tvProductoPrecio);
