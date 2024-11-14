@@ -36,6 +36,13 @@ public class UVListarProdPresenter implements UVListarProdContract.Presenter {
         call.enqueue(new Callback<List<UVListarProdModel>>() {
             @Override
             public void onResponse(Call<List<UVListarProdModel>> call, Response<List<UVListarProdModel>> response) {
+                if(response.body() != null){
+                    for (UVListarProdModel producto: response.body()) {
+                        Log.e("", "" + producto.getId_producto() + " " + producto.getNombre_producto());
+                    }
+                    Log.e("", "");
+                }
+
                 // Verificar si la respuesta es exitosa y si hay productos
                 if (response.isSuccessful() && response.body() != null) {
                     List<UVListarProdModel> productos = response.body(); // Lista de productos directamente

@@ -135,10 +135,10 @@ exports.getProductDetails = async (productId) => {
     const query = `
         SELECT 
             p.id_producto, 
-            p.nombre_producto AS nombre, 
-            p.desc_prod AS descripcion, 
+            p.nombre_producto, 
+            p.desc_prod, 
             p.precio, 
-            p.imagen_prod AS imagen_url, 
+            p.imagen_prod, 
             u.username AS vendedor,
             p.categoria
         FROM productos p
@@ -196,24 +196,20 @@ exports.confirmPurchase = async ({ id_usuario, productos }) => {
 exports.getPurchaseHistory = async (id_usuario) => {
     const query = `
         SELECT 
-            dp.id_detalle_pedido AS detalle_id,
             dp.fecha_detalle_pedido AS fecha_compra,
-            dp.precio_total AS monto_total,
-            p.id_producto,
+            p.imagen_prod AS imagen_producto,
             p.nombre_producto,
             pe.cantidad,
             pe.precio_unitario,
-            u.username AS comprador
+            dp.precio_total
         FROM 
             Detalle_pedido dp
         JOIN 
             Pedido pe ON dp.id_detalle_pedido = pe.id_detalle_pedido
         JOIN 
             Productos p ON pe.id_producto = p.id_producto
-        JOIN 
-            Usuarios u ON dp.id_usuario_pedido = u.id_usuario
         WHERE 
-            u.id_usuario = $1  -- Usamos el parámetro para el id del usuario
+            dp.id_usuario_pedido = $1  -- Usamos el parámetro para el id del usuario
         ORDER BY 
             dp.fecha_detalle_pedido DESC  -- Ordenamos por la fecha de compra más reciente
     `;
@@ -229,6 +225,8 @@ exports.getPurchaseHistory = async (id_usuario) => {
         throw new Error('Error al consultar el historial de compras');
     }
 };
+
+
 
 
 

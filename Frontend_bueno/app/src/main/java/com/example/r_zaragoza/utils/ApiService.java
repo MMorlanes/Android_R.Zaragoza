@@ -1,6 +1,7 @@
 package com.example.r_zaragoza.utils;
 
 import com.example.r_zaragoza.LOGyREG.model.User;
+import com.example.r_zaragoza.UCHistoricoCompras.model.Compra;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
 import com.example.r_zaragoza.UVdarAltaProd.model.Product;
 
@@ -48,5 +49,9 @@ public interface ApiService {
     //Ruta para los detalles de los productos
     @GET("api/UC/{id}")
     Call<UVListarProdModel> getProductDetails(@Path("id") int id);
+
+    // Ruta para obtener el historial de compras de un usuario
+    @GET("api/UC/history/{id}")
+    Call<List<Compra>> getUserHistory(@Path("id") int userId);
 
 }

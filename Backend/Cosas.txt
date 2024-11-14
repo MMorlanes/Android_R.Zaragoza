@@ -7,6 +7,7 @@ CREATE TABLE Usuarios (
     rol VARCHAR(10) CHECK (rol IN ('cliente', 'vendedor')) NOT NULL
 );
 
+(Categorías: Accesorios, verano y ropa)
 CREATE TABLE Productos (
     id_producto SERIAL PRIMARY KEY,
     id_usuario INT,
@@ -14,7 +15,7 @@ CREATE TABLE Productos (
     desc_prod TEXT,
     imagen_prod VARCHAR(255),
     precio NUMERIC(10, 2) NOT NULL,
-    categoria VARCHAR(10) CHECK (categoria IN ('mujer', 'hombre', 'niños')),
+    categoria VARCHAR(10) CHECK (categoria IN ('Accesorios', 'Ropa', 'Verano')),
     CONSTRAINT FK_Producto_Usuario FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
@@ -136,4 +137,13 @@ INSERT INTO Notificaciones (id_usuario, mensaje, fecha_envio, leida) VALUES
 (3, 'Tu pedido de la Bufanda está pendiente.', CURRENT_DATE, FALSE),
 (1, 'Gracias por tu compra de la Gorra.', CURRENT_DATE, TRUE);
 
-
+Casos de uso Libres:
+1.
+Listar todos los productos a la venta en la pantalla del cliente
+2.
+2. Estadísticas y Reportes de Ventas
+Descripción: Ofrece al vendedor un panel de estadísticas con reportes sobre el rendimiento de sus productos, incluyendo número de ventas, ingresos generados, productos más vendidos y mejor calificados.
+Características:
+Reporte de ventas diario, semanal o mensual.
+Gráficas de los productos más vendidos y menos vendidos.
+Visualización de ingresos por cada producto o categoría.

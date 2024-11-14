@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.r_zaragoza.UCBusquedaTexto.view.BusquedaTextoActivity;
 import com.example.r_zaragoza.UCFiltradoCateg.view.UCFiltradoCategActivity;
+import com.example.r_zaragoza.UCHistoricoCompras.view.UCHistoricoComprasActivity;
 import com.example.r_zaragoza.UCTop10Products.view.Top10ProductActivity;
 import com.example.r_zaragoza.UCTop10Sellers.view.Top10SellersActivity;
 
@@ -76,12 +77,12 @@ public class UCMainActivity extends AppCompatActivity {
         btnConfirmPurchase.setOnClickListener(view -> {
             showToast("Dar de Alta Producto");
             startActivity(new Intent(this, UVAddProductActivity.class));  // Actividad para dar de alta productos
-        });
+        });*/
 
         btnPurchaseHistory.setOnClickListener(view -> {
-            showToast("Ver Listado de Productos");
-            startActivity(new Intent(this, UVListarProdActivity.class));  // Actividad para ver listado de productos
-        });*/
+            showToast("Obteniendo el historico de compra...");
+            startActivity(new Intent(this, UCHistoricoComprasActivity.class));  // Actividad para ver listado de productos
+        });
     }
 
     private void showToast(String message) {

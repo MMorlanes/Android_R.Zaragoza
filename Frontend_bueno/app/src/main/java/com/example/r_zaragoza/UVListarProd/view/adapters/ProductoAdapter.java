@@ -1,6 +1,7 @@
 package com.example.r_zaragoza.UVListarProd.view.adapters;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,9 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     public void onBindViewHolder(ProductoViewHolder holder, int position) {
         UVListarProdModel producto = productos.get(position);
 
-        holder.nombre.setText(producto.getNombre_producto());
-        holder.descripcion.setText(producto.getDesc_producto());
+        Log.e("Adapter", "" + producto.getId_producto() + " " + producto.getNombre_producto());
+
+        holder.nombre.setText("Nombre: " +producto.getNombre_producto());
         holder.precio.setText("Precio: " + producto.getPrecio() + " €");
 
         if (producto.getImagen_prod() != null && !producto.getImagen_prod().isEmpty()) {

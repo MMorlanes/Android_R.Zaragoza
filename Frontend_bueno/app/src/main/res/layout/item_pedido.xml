@@ -1,0 +1,46 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Fecha del Pedido -->
+        <TextView
+            android:id="@+id/tvFechaPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha del Pedido"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Contenedor de Productos -->
+        <LinearLayout
+            android:id="@+id/productosContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp" />
+
+        <!-- Precio Total del Pedido -->
+        <TextView
+            android:id="@+id/tvPrecioTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio Total"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

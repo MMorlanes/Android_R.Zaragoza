@@ -7,16 +7,16 @@ public class UVListarProdModel {
     @SerializedName("id_producto")
     private int id_producto;
 
-    @SerializedName("nombre")
+    @SerializedName("nombre_producto")
     private String nombre_producto; // Mapeado con el campo "nombre" del JSON
 
-    @SerializedName("descripcion")
+    @SerializedName("desc_prod")
     private String desc_producto; // Mapeado con el campo "descripcion" del JSON
 
     @SerializedName("precio")
     private String precio;
 
-    @SerializedName("imagen_url")
+    @SerializedName("imagen_prod")
     private String imagen_prod; // Mapeado con el campo "imagen_url" del JSON
 
     @SerializedName("categoria")

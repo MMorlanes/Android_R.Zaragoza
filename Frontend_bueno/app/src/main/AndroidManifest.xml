@@ -37,6 +37,7 @@
         <!-- Actividad para la busqueda de texto -->
         <activity android:name=".UCBusquedaTexto.view.BusquedaTextoActivity" />
         <activity android:name=".UCDetalleProd.view.DetalleProdActivity" />
+        <activity android:name=".UCHistoricoCompras.view.UCHistoricoComprasActivity" />
 
 
     </application>

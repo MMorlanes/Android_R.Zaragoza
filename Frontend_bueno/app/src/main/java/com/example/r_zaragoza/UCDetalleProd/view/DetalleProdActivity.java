@@ -64,7 +64,7 @@ public class DetalleProdActivity extends AppCompatActivity implements DetallePro
     public void showProductDetails(UVListarProdModel producto) {
         tvNombre.setText(producto.getNombre_producto());
         tvDescripcion.setText(producto.getDesc_producto());
-        tvPrecio.setText("Precio: $" + producto.getPrecio());
+        tvPrecio.setText("Precio: €" + producto.getPrecio());
 
         Glide.with(this)
                 .load(producto.getImagen_prod())
