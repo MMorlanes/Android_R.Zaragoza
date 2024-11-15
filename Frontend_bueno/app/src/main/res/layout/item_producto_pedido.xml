@@ -15,16 +15,6 @@
         android:textSize="15sp"
         android:layout_marginBottom="4dp" />
 
-    <!-- Cantidad del Producto -->
-    <TextView
-        android:id="@+id/tvCantidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cantidad: "
-        android:textColor="#555555"
-        android:textSize="14sp"
-        android:layout_marginBottom="4dp" />
-
     <!-- Precio Unitario del Producto -->
     <TextView
         android:id="@+id/tvPrecioUnitario"

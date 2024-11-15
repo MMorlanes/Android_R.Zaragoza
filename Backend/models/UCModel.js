@@ -198,7 +198,6 @@ exports.getPurchaseHistory = async (id_usuario) => {
             dp.fecha_detalle_pedido AS fecha_compra,
             p.imagen_prod AS imagen_producto,
             p.nombre_producto,
-            pe.cantidad,
             pe.precio_unitario,
             dp.precio_total
         FROM 

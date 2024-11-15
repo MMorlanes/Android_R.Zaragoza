@@ -42,11 +42,9 @@ public class UCHistoricoComprasAdapter extends RecyclerView.Adapter<UCHistoricoC
             View productoView = LayoutInflater.from(holder.itemView.getContext()).inflate(R.layout.item_producto_pedido, holder.productosContainer, false);
 
             TextView nombreProducto = productoView.findViewById(R.id.tvProductoNombre);
-            TextView cantidadProducto = productoView.findViewById(R.id.tvCantidad);
             TextView precioUnitario = productoView.findViewById(R.id.tvPrecioUnitario);
 
             nombreProducto.setText(producto.getNombre());
-            cantidadProducto.setText("Cantidad: " + producto.getCantidad());
             precioUnitario.setText("Precio: €" + producto.getPrecioUnitario());
 
             holder.productosContainer.addView(productoView);

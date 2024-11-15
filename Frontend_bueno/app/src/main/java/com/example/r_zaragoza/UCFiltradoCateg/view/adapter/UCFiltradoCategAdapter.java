@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.UCDetalleProd.view.DetalleProdActivity;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
+import com.example.r_zaragoza.utils.Imagenes;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 import android.content.Intent;
@@ -39,16 +40,7 @@ public class UCFiltradoCategAdapter extends RecyclerView.Adapter<UCFiltradoCateg
         holder.descripcion.setText(producto.getDesc_producto());
         holder.precio.setText("Precio: " + producto.getPrecio() + " €");
 
-        // Cargar imagen con Picasso
-        if (producto.getImagen_prod() != null && !producto.getImagen_prod().isEmpty()) {
-            Picasso.get()
-                    .load("URL_BASE_IMAGEN/" + producto.getImagen_prod())
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.logo)
-                    .into(holder.imagen);
-        } else {
-            holder.imagen.setImageResource(R.drawable.logo);
-        }
+        new Imagenes.Builder(producto.getImagen_prod(), holder.imagen).build().start();
 
         // Agregar OnClickListener para abrir DetalleProdActivity
         holder.itemView.setOnClickListener(v -> {

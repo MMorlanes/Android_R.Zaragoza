@@ -1,16 +1,28 @@
 package com.example.r_zaragoza.UCFinalizarCompra.view;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import com.example.r_zaragoza.LOGyREG.view.LoginActivity;
 import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.UCFinalizarCompra.contracts.FinalizarCompraContract;
 import com.example.r_zaragoza.UCFinalizarCompra.model.FinalizarCompraModel;
 import com.example.r_zaragoza.UCFinalizarCompra.presenter.FinalizarCompraPresenter;
+import com.example.r_zaragoza.UCHistoricoCompras.view.UCHistoricoComprasActivity;
+import com.example.r_zaragoza.UVdarAltaProd.model.Product;
+import com.example.r_zaragoza.utils.Email;
+import com.example.r_zaragoza.utils.EmailSender;
 import com.example.r_zaragoza.utils.RetrofitClient;
 import com.example.r_zaragoza.utils.ApiService;
 
@@ -68,7 +80,6 @@ public class FinalizarCompraActivity extends AppCompatActivity implements Finali
             }
         });
 
-
     }
 
     @Override
@@ -78,7 +89,65 @@ public class FinalizarCompraActivity extends AppCompatActivity implements Finali
 
     @Override
     public void showSuccessMessage(String message) {
+        Email email = new Email("Encabezado", "Cuerpo", "a27737@svalero.com");
+        new EmailSender(email).execute();
+        createNotification(this, "A", "aaa");
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+
+    void createNotification(Context context, String subject, String body) {
+        Log.e("Notification", "Attempting to create notification");
+
+        String productNames = "";
+
+//        for (Product product: productList) {
+//            productNames += "- " + product.getName() + "\n";
+//        }
+
+        // Create an Intent for the action when the notification is clicked
+        Intent intent = new Intent(context, LoginActivity.class);  // Replace YourActivity with the activity to launch
+    //        intent.putExtra("productNames", productNames);  // Optional: pass data to the activity
+
+        // Create a PendingIntent, which will be triggered when the notification is clicked
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default_channel")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle(subject)
+                .setContentText(body)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(body))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (notificationManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                String channelId = "default_channel";
+                CharSequence channelName = "Canal principal";
+                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+
+                try {
+                    Log.e("NotificationSuccess", "");
+                    notificationManager.createNotificationChannel(channel);
+                } catch (Exception e) {
+                    Log.e("NotificationError", "Failed to create notification channel", e);
+                }
+            }
+
+            notificationManager.notify(1, builder.build());
+        } else {
+            Log.e("NotificationError", "Notification Manager is null");
+        }
     }
 }

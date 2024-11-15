@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.UCDetalleProd.view.DetalleProdActivity;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
-import com.squareup.picasso.Picasso;
+import com.example.r_zaragoza.utils.Imagenes;
+
 
 import java.util.List;
 
@@ -43,12 +44,10 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         holder.nombre.setText("Nombre: " +producto.getNombre_producto());
         holder.precio.setText("Precio: " + producto.getPrecio() + " €");
 
+
         if (producto.getImagen_prod() != null && !producto.getImagen_prod().isEmpty()) {
-            Picasso.get()
-                    .load(producto.getImagen_prod())
-                    .placeholder(R.drawable.toalla)
-                    .error(R.drawable.logo)
-                    .into(holder.imagen);
+
+            new Imagenes.Builder(producto.getImagen_prod(), holder.imagen).build().start();
         } else {
             holder.imagen.setImageResource(R.drawable.logo);
         }

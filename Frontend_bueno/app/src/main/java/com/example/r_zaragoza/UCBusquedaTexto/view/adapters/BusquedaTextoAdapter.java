@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.r_zaragoza.R;
 import com.example.r_zaragoza.UCDetalleProd.view.DetalleProdActivity;
 import com.example.r_zaragoza.UVListarProd.model.UVListarProdModel;
+import com.example.r_zaragoza.utils.Imagenes;
 
 import java.util.List;
 
@@ -39,11 +40,7 @@ public class BusquedaTextoAdapter extends RecyclerView.Adapter<BusquedaTextoAdap
         holder.productDescription.setText(producto.getDesc_producto());
         holder.productPrice.setText(String.format("$%s", producto.getPrecio()));
 
-        // Usa Glide para cargar la imagen
-        Glide.with(holder.itemView.getContext())
-                .load(producto.getImagen_prod())
-                .placeholder(R.drawable.logo)
-                .into(holder.productImage);
+        new Imagenes.Builder(producto.getImagen_prod(), holder.productImage).build().start();
 
         // Configurar OnClickListener para abrir DetalleProdActivity al hacer clic en el producto
         holder.itemView.setOnClickListener(v -> {
